@@ -1,13 +1,13 @@
 import {PropsWithChildren} from "react";
-import {Sidebar} from "@/layouts/user/Sidebar";
-import {DashboardNav} from "@/layouts/user/Navbar";
+import {DashboardSidebar} from "@/layouts/dashboard/DashboardSidebar";
+import {DashboardNav} from "@/layouts/dashboard/DashboardNavbar";
 
 
-const UserLayout = (props: PropsWithChildren) => {
+const DashboardLayout = (props: PropsWithChildren) => {
   return (
     <>
       <main className="flex gap-2 min-h-screen">
-        <Sidebar/>
+        <DashboardSidebar/>
         <div className="pl-[17.5rem] w-full h-screen bg-[#F9FAFB]">
           <DashboardNav/>
           <div className="container py-8">
@@ -19,4 +19,4 @@ const UserLayout = (props: PropsWithChildren) => {
   )
 }
 
-export default UserLayout;
+export default DashboardLayout;

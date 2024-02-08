@@ -2,7 +2,7 @@ import Link from "next/link";
 import {Github} from "lucide-react";
 
 
-export const FooterAuth = () => {
+export const MainFooter = () => {
   return (
     <>
       <footer className="min-h-16 border-t flex justify-center">

@@ -1,0 +1,69 @@
+import {Column} from "@tanstack/react-table";
+import React from "react";
+import {cn} from "@/lib/utils";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
+import {ArrowDownZA, ArrowUpAZ, ArrowUpZA, ChevronsUpDown, EyeOff} from "lucide-react";
+import {Separator} from "@/components/ui/separator"
+import {Button} from "@/components/ui/button";
+
+interface DataTableColumnHeaderProps<TData, TValue>
+  extends React.HTMLAttributes<HTMLDivElement> {
+  column: Column<TData, TValue>
+  title: string
+}
+
+
+export const DataTableColumnHeader = <TData, TValue>(
+  {
+    column,
+    title,
+    className
+  }: DataTableColumnHeaderProps<TData, TValue>
+) => {
+
+  if(!column.getCanSort){
+    return <div className={cn(className)}>{title}</div>
+  }
+
+  return (
+    <>
+      <div
+        className={cn("flex items-center space-y-2", className)}
+      >
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="-ml-3 h-8 data-[state=open]:bg-accent"
+            >
+              <span>{title}</span>
+              {column.getIsSorted() === "desc" ? (
+                <ArrowDownZA className="ml-2 h-4 w-4"/>
+              ) : column.getIsSorted() === "asc" ? (
+                <ArrowUpAZ className="ml-2 h-4 w-4"/>
+              ) : (
+                <ChevronsUpDown className="ml-2 h-4 w-4"/>
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+              <ArrowUpZA size={18} className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"/>
+              Asc
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+              <ArrowDownZA size={18} className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"/>
+              Desc
+            </DropdownMenuItem>
+            <Separator/>
+            <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+              <EyeOff size={18} className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"/>
+              Hide
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </>
+  )
+}

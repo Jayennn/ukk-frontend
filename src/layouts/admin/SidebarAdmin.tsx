@@ -1,4 +1,4 @@
-import {GaugeCircle, GraduationCap, ListMinus, LucideIcon, User} from "lucide-react";
+import {Book, GaugeCircle, GraduationCap, Library, ListMinus, LucideIcon, NotebookPen, User} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
@@ -16,6 +16,11 @@ const linksDef: LinkTypes[] = [
     icon: GaugeCircle,
     label: "Dashboard",
     href: "/admin/dashboard"
+  },
+  {
+    icon: Book,
+    label: "Book",
+    href: "/admin/manage-books"
   }
 ]
 
@@ -28,12 +33,17 @@ const masterDataLinks: LinkTypes[] = [
   {
     icon: User,
     label: "Staff",
-    href: "/admin/staff"
+    href: "/admin/manage-staff"
   },
   {
-    icon: GraduationCap,
-    label: "Student",
-    href: "/admin/student"
+    icon: NotebookPen,
+    label: "Author",
+    href: "/admin/manage-author"
+  },
+  {
+    icon: Library, 
+    label: "Bookshelf",
+    href: "/admin/manage-shelf"
   }
 ]
 
@@ -47,7 +57,7 @@ export const SidebarAdmin = () => {
           </div>
           <div className="flex flex-col gap-3">
             {linksDef.map((link) => (
-              <Button asChild size="lg" variant="ghost" className={cn("justify-start", router.pathname === link.href && "bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90")} key={link.label}>
+              <Button asChild size="lg" variant="ghost" className={cn("justify-start", router.pathname.includes(link.href) && "bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90")} key={link.label}>
                 <Link href={link.href}>
                   <link.icon className="mr-2 h-4 w-4"/>
                   <p className="font-medium">{link.label}</p>

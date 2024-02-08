@@ -29,7 +29,7 @@ const DashboardLinks: DashboardLinksType[] = [
 ]
 
 
-export const Sidebar = () => {
+export const DashboardSidebar = () => {
   const router = useRouter();
   return (
     <>

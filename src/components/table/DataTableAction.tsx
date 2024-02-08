@@ -2,9 +2,10 @@ import * as DropDown from "@/components/ui/dropdown-menu";
 import {MoreHorizontal} from "lucide-react";
 import {CellContext} from "@tanstack/react-table";
 
-export const DataTableAction = <TData, _>({}: CellContext<TData, unknown>) => {
+export const DataTableAction = <TData, _>({row}: CellContext<TData, unknown>) => {
 
-  
+  const {id} = row.original;
+
   return (
     <>
       <DropDown.DropdownMenu>
@@ -12,7 +13,7 @@ export const DataTableAction = <TData, _>({}: CellContext<TData, unknown>) => {
           <MoreHorizontal className="w-4 h-4"/>
         </DropDown.DropdownMenuTrigger>
         <DropDown.DropdownMenuContent align="end">
-          <DropDown.DropdownMenuItem>
+          <DropDown.DropdownMenuItem onClick={() => console.log(id)}>
             Edit
           </DropDown.DropdownMenuItem>
           <DropDown.DropdownMenuItem>

@@ -8,10 +8,11 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {trpc} from "@/utils/trpc";
 import {toast} from "sonner";
+import {FullInput} from "@/components/FullInput";
 
 
-export const CreateDialogCategory = ({ onOpenChange, ...props}: DialogProps) => {
-  const ctx = trpc.useUtils();
+export const DialogCreateCategory = ({ onOpenChange, ...props}: DialogProps) => {
+
   const {
     reset,
     handleSubmit,
@@ -24,6 +25,7 @@ export const CreateDialogCategory = ({ onOpenChange, ...props}: DialogProps) => 
     }
   })
 
+  const ctx = trpc.useUtils();
   const addCategoryMutation = trpc.category.create.useMutation({
     onSuccess: async({message}) => {
       toast.success(message)
@@ -44,6 +46,7 @@ export const CreateDialogCategory = ({ onOpenChange, ...props}: DialogProps) => 
   return (
     <>
       <FullDialog
+        formName="category-form"
         onOpenChange={() => {
           onOpenChange!(false)
           reset()
@@ -52,20 +55,14 @@ export const CreateDialogCategory = ({ onOpenChange, ...props}: DialogProps) => 
         title="Add Category"
         description="Add Category Form. Click save when you're done"
       >
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="flex flex-col gap-3">
-            <Label htmlFor="category-name">Category Name</Label>
-            <Input
-              id="category-name"
-              {...register("category_name")}
-              placeholder="anime"
-            />
-            {errors.category_name?.message && <p className="text-xs font-medium text-red-500">{errors.category_name.message}</p>}
-          </div>
-          <div className="flex items-center justify-end gap-2">
-            <Button onClick={() => onOpenChange!(false)} size="sm" variant="ghost">Close</Button>
-            <Button type="submit" size="sm">Create</Button>
-          </div>
+        <form id="category-form" onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
+          <FullInput
+            id="category-name"
+            {...register("category_name")}
+            errMsg={errors.category_name?.message}
+            placeholder="anime"
+            label="Category Name"
+          />
         </form>
       </FullDialog>
     </>
